@@ -39,11 +39,20 @@ parkingController.replaceParking = async (req, res) => {
 
 parkingController.getParking = async (req, res) => {
   try {
-    const response = await parking.getOne(req, res);r
+    const response = await parking.getOne(req, res);
     res.status(200).json(response);
   } catch (error) {
     console.log(error);
   }
 };
+
+parkingController.modifyParking = async (req, res) => {
+  try {
+    const response = await parking.modify(req, res);
+    res.status(200).json(response);
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 module.exports = parkingController;

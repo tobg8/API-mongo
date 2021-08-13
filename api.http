@@ -2,14 +2,15 @@
 GET http://localhost:3888/parkings
 
 ### GET PARKING
-GET http://localhost:3888/parkings/5
+GET http://localhost:3888/parkings/3
 
 ### UPDATE PARKING
-PATCH http://localhost:3888/parkings/5
+PATCH http://localhost:3888/parkings/3
 Content-Type: application/json
 
 {
-  "city":"LILLE"
+  "city":"LILLE",
+  "type":"IDK"
 }
 
 ### POST PARKING
@@ -36,3 +37,45 @@ Content-Type: application/json
 
 ### DELETE PARKING
 DELETE http://localhost:3888/parkings/12
+
+
+# Reservation
+
+### GET RESERVATIONS
+GET http://localhost:3888/reservations
+
+### GET RESERVATION
+GET http://localhost:3888/reservations/4
+
+### DELETE RESERVATION
+DELETE http://localhost:3888/reservations/2
+
+### PUT RESERVATION
+PUT http://localhost:3888/reservations/3
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "azee",
+  "type": "zaregddhh",
+  "city": "setheeeing"
+}
+
+### UPDATE RESERVATION
+PATCH http://localhost:3888/reservations/4
+Content-Type: application/json
+
+{
+  "city":"Ok"
+}
+
+### POST RESERVATION
+POST http://localhost:3888/reservations
+Content-Type: application/json
+
+{
+  "id": 12,
+  "name": "tarazesdfdsdsf",
+  "type": "sdfORT",
+  "city": "FARO"
+}
