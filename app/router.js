@@ -5,7 +5,6 @@ const reservationsController = require('./controllers/reservationController');
 
 const router = express.Router();
 
-// Routes
 router.get('/parkings', parkingController.getParkings);
 router.get('/parkings/:id', parkingController.getParking);
 router.post('/parkings', parkingController.addParking);

@@ -1,4 +1,4 @@
- const reservations = require('../models/reservation');
+const reservations = require('../models/reservation');
 const reservationsController = {};
 
 reservationsController.getReservations = async (_, res) => {

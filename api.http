@@ -18,10 +18,7 @@ POST http://localhost:3888/parkings
 Content-Type: application/json
 
 {
-  "id": 12,
-  "name": "tarazesdfdsdsf",
-  "type": "sdfORT",
-  "city": "FARO"
+  "city":"ok"
 }
 
 ### PUT PARKING

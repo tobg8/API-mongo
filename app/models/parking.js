@@ -4,13 +4,37 @@ const parking = {};
 parking.list = async () => await database.db.collection('parking').find({}).toArray();
 
 parking.add = async (req, res) => {
-  const newData = req.body;
+  const {
+    city,
+    name,
+    type
+  } = req.body;
+
+  const query = {};
+
+  if (city && typeof(city) === 'string') {
+    query.city = city.toUpperCase();
+  }
+  if (name && typeof(name) === 'string') {
+    query.name = name;
+  }
+  if (type && typeof(type) === 'string') {
+    query.type = type.toUpperCase();
+  }
+
+  if (Object.entries(query).length === 0) {
+    const noDataError = {
+      error: 'Insert data about the parking you\'d like to save',
+    }
+    return res.status(400).json(noDataError);
+  }
 
   try {
-    const response = await database.db.collection('parking').insertOne(newData);
+    const response = await database.db.collection('parking').insertOne(query);
     res.status(200).json(response);
   } catch (error) {
     console.log(error);
+    return res.status(500).json('Something went wrong');
   }
 }
 
