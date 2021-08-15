@@ -5,12 +5,11 @@ GET http://localhost:3888/parkings
 GET http://localhost:3888/parkings/3
 
 ### UPDATE PARKING
-PATCH http://localhost:3888/parkings/3
+PATCH http://localhost:3888/parkings/ok
 Content-Type: application/json
 
 {
-  "city":"LILLE",
-  "type":"IDK"
+  "city": "cool"
 }
 
 ### POST PARKING
@@ -22,18 +21,17 @@ Content-Type: application/json
 }
 
 ### PUT PARKING
-PUT http://localhost:3888/parkings/12
+PUT http://localhost:3888/parkings/3
 Content-Type: application/json
 
 {
   "id": 1,
   "name": "azee",
-  "type": "zaregddhh",
-  "city": "setheeeing"
+  "type": "ok"
 }
 
 ### DELETE PARKING
-DELETE http://localhost:3888/parkings/12
+DELETE http://localhost:3888/parkings/ok
 
 
 # Reservation

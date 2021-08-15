@@ -1,85 +1,65 @@
+const { response, query } = require('express');
 const database = require('../db');
 const parking = {};
 
-parking.list = async () => await database.db.collection('parking').find({}).toArray();
+parking.list = async () => {
+  const parkingList = await database.db.collection('parking').find({}).toArray();
+  return parkingList;
+}
 
-parking.add = async (req, res) => {
-  const {
-    city,
-    name,
-    type
-  } = req.body;
-
-  const query = {};
-
-  if (city && typeof(city) === 'string') {
-    query.city = city.toUpperCase();
-  }
-  if (name && typeof(name) === 'string') {
-    query.name = name;
-  }
-  if (type && typeof(type) === 'string') {
-    query.type = type.toUpperCase();
-  }
-
-  if (Object.entries(query).length === 0) {
-    const noDataError = {
-      error: 'Insert data about the parking you\'d like to save',
-    }
-    return res.status(400).json(noDataError);
-  }
-
+parking.add = async (query) => {
   try {
     const response = await database.db.collection('parking').insertOne(query);
-    res.status(200).json(response);
+    return response;
   } catch (error) {
-    console.log(error);
-    return res.status(500).json('Something went wrong');
+    // console.log(error);
+    return {
+      error,
+    };
   }
 }
 
-parking.delete = async (req, res) => {
-  const id = parseInt(req.params.id);
-
+parking.delete = async (id) => {
   try {
     const response = await database.db.collection('parking').deleteOne({id});
-    res.status(200).json(response);
+    return response;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
+    return error;
   }
 }
 
-parking.replace = async (req, res) => {
-  const id = parseInt(req.params.id);
-  const newData = req.body;
-
+parking.replace = async (id, query) => {
   try {
-    const response = await database.db.collection('parking').replaceOne({id}, newData);
-    res.status(200).json(response);
-  } catch (err) {
-    console.log(err);
-  }
-};
-
-parking.modify = async (req, res) => {
-  const id = parseInt(req.params.id);
-  const newData = req.body;
-
-  try {
-    const response = await database.db.collection('parking').findOneAndUpdate({id}, [ { $set: newData }]);
-    res.status(200).json(response);
+    const response = await database.db.collection('parking').replaceOne({id}, query);
+    return response;
   } catch (error) {
-    console.trace(error);
+    // console.log(error);
+    return error;
   }
 };
 
-parking.getOne = async (req, res) => {
-  const id = parseInt(req.params.id);
+parking.modify = async (id, query) => {
   try {
-    const docs = await database.db.collection('parking').find({id}).toArray()
-    res.status(200).json(docs)
-  } catch (err) {
-    console.log(err)
+    const response = await database.db.collection('parking').findOneAndUpdate({id}, [ { $set: query }]);
+    return response;
+  } catch (error) {
+    // console.log(error);
+    return {
+      error,
+    };
+  }
+};
+
+parking.getOne = async (id) => {
+  try {
+    const response = await database.db.collection('parking').find({id}).toArray()
+    return response;
+  } catch (error) {
+    // console.log(error);
+    return {
+      error,
+    };
   }
 }
 

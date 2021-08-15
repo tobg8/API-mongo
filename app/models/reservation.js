@@ -32,8 +32,8 @@ reservations.replace = async (req, res) => {
   try {
     const response = await database.db.collection('reservations').replaceOne({id}, newData);
     res.status(200).json(response);
-  } catch (err) {
-    console.log(err);
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -54,8 +54,8 @@ reservations.getOne = async (req, res) => {
   try {
     const docs = await database.db.collection('reservations').find({id}).toArray();
     res.status(200).json(docs);
-  } catch (err) {
-    console.log(err)
+  } catch (error) {
+    console.log(error)
   }
 }
 
