@@ -1,44 +1,49 @@
 const database = require('../db');
+
 const parking = {};
 
 parking.list = async () => {
   try {
     const parkingList = await database.db.collection('parking').find({}).toArray();
     return parkingList;
-  } catch (error) {
+  }
+  catch (error) {
     return {
       error,
-    }
+    };
   }
-}
+};
 
 parking.add = async (query) => {
   try {
     const response = await database.db.collection('parking').insertOne(query);
     return response;
-  } catch (error) {
+  }
+  catch (error) {
     // console.log(error);
     return {
       error,
     };
   }
-}
+};
 
 parking.delete = async (id) => {
   try {
-    const response = await database.db.collection('parking').deleteOne({id});
+    const response = await database.db.collection('parking').deleteOne({ id });
     return response;
-  } catch (error) {
+  }
+  catch (error) {
     // console.log(error);
     return error;
   }
-}
+};
 
 parking.replace = async (id, query) => {
   try {
-    const response = await database.db.collection('parking').replaceOne({id}, query);
+    const response = await database.db.collection('parking').replaceOne({ id }, query);
     return response;
-  } catch (error) {
+  }
+  catch (error) {
     // console.log(error);
     return error;
   }
@@ -46,9 +51,10 @@ parking.replace = async (id, query) => {
 
 parking.modify = async (id, query) => {
   try {
-    const response = await database.db.collection('parking').findOneAndUpdate({id}, [ { $set: query }]);
+    const response = await database.db.collection('parking').findOneAndUpdate({ id }, [{ $set: query }]);
     return response;
-  } catch (error) {
+  }
+  catch (error) {
     // console.log(error);
     return {
       error,
@@ -58,14 +64,15 @@ parking.modify = async (id, query) => {
 
 parking.getOne = async (id) => {
   try {
-    const response = await database.db.collection('parking').find({id}).toArray()
+    const response = await database.db.collection('parking').find({ id }).toArray();
     return response;
-  } catch (error) {
+  }
+  catch (error) {
     // console.log(error);
     return {
       error,
     };
   }
-}
+};
 
 module.exports = parking;

@@ -6,10 +6,20 @@
   "repository": "git@github.com:tobg8/API-mongo.git",
   "author": "TheoB-png <theo.beloeil.pro@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix --ext .js,.jsx ."
+  },
   "dependencies": {
     "eslint": "^7.32.0",
     "eslint-config-airbnb": "^18.2.1",
     "express": "^4.17.1",
     "mongodb": "^4.1.0"
+  },
+  "devDependencies": {
+    "eslint-plugin-import": "^2.24.0",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.24.0"
   }
 }
