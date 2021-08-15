@@ -88,13 +88,13 @@ parkingController.replaceParking = async (req, res) => {
 
   const query = {};
 
-  if (name && typeof(name) === 'string') {
+  if (typeof(name) === 'string') {
     query.name = name;
   }
-  if (type && typeof(type) === 'string') {
+  if (typeof(type) === 'string') {
     query.type = type;
   }
-  if (city && typeof(city) === 'string') {
+  if (typeof(city) === 'string') {
     query.city = city;
   }
 
