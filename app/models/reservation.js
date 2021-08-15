@@ -1,16 +1,25 @@
+const { response } = require('express');
 const database = require('../db');
 const reservations = {};
 
-reservations.list = async () => await database.db.collection('reservations').find({}).toArray();
-
-reservations.add = async (req, res) => {
-  const newData = req.body;
-
+reservations.list = async () => {
   try {
-    const response = await database.db.collection('reservations').insertOne(newData);
-    res.status(200).json(response);
+    const response = await database.db.collection('reservations').find({}).toArray();
+    return response;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
+    return error;
+  }
+
+};
+
+reservations.add = async (query) => {
+  try {
+    const response = await database.db.collection('reservations').insertOne(query);
+    return response;
+  } catch (error) {
+    // console.log(error);
+    return error;
   }
 }
 
@@ -19,9 +28,10 @@ reservations.delete = async (req, res) => {
 
   try {
     const response = await database.db.collection('reservations').deleteOne({id});
-    res.status(200).json(response);
+    return response;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
+    return error;
   }
 }
 
@@ -31,9 +41,10 @@ reservations.replace = async (req, res) => {
 
   try {
     const response = await database.db.collection('reservations').replaceOne({id}, newData);
-    res.status(200).json(response);
+    return response;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
+    return error;
   }
 };
 
@@ -43,19 +54,21 @@ reservations.modify = async (req, res) => {
 
   try {
     const response = await database.db.collection('reservations').findOneAndUpdate({id}, [ { $set: newData }]);
-    res.status(200).json(response);
+    return response;
   } catch (error) {
-    console.trace(error);
+    // console.trace(error);
+    return error;
   }
 };
 
 reservations.getOne = async (req, res) => {
   const id = parseInt(req.params.id);
   try {
-    const docs = await database.db.collection('reservations').find({id}).toArray();
-    res.status(200).json(docs);
+    const response = await database.db.collection('reservations').find({id}).toArray();
+    return response;
   } catch (error) {
-    console.log(error)
+    // console.log(error)
+    return error;
   }
 }
 

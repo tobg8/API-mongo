@@ -43,7 +43,7 @@ GET http://localhost:3888/reservations
 GET http://localhost:3888/reservations/4
 
 ### DELETE RESERVATION
-DELETE http://localhost:3888/reservations/2
+DELETE http://localhost:3888/reservations/4
 
 ### PUT RESERVATION
 PUT http://localhost:3888/reservations/3
@@ -69,8 +69,16 @@ POST http://localhost:3888/reservations
 Content-Type: application/json
 
 {
-  "id": 12,
-  "name": "tarazesdfdsdsf",
+  "id": 5,
+  "parkingId": 5,
+  "parking": "Parking 5",
   "type": "sdfORT",
-  "city": "FARO"
+  "city": "lille",
+  "clientName": "Eddy",
+  "vehicle": "car",
+  "licensePlate": "3647ee",
+  "checkin":"2021-08-15T21:01:27.457Z",
+  "checkout":"2021-08-15T21:02:35.664Z"
+
+
 }
