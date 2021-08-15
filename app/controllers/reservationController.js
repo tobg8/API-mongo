@@ -1,12 +1,14 @@
 const reservations = require('../models/reservation');
 const parkingModel = require('../models/parking');
+
 const reservationsController = {};
 
 reservationsController.getReservations = async (_, res) => {
   try {
     const response = await reservations.list();
     res.status(200).json(response);
-  } catch (error) {
+  }
+  catch (error) {
     console.log(error);
   }
 };
@@ -20,7 +22,7 @@ reservationsController.addReservation = async (req, res) => {
     vehicle,
     licensePlate,
     checkin,
-    checkout
+    checkout,
   } = req.body;
 
   if (isNaN(parseInt(parkingId))) {
@@ -42,30 +44,33 @@ reservationsController.addReservation = async (req, res) => {
   if (
     parking
     && parking === parkingDoExist[0].name
-    && typeof(parking) === 'string'
+    && typeof (parking) === 'string'
   ) {
-      query.parking = parking;
-  } else {
+    query.parking = parking;
+  }
+  else {
     return res.status(400).json({
-      error:'Invalid / Non-existent parking name',
+      error: 'Invalid / Non-existent parking name',
     });
   }
 
-  if (clientName && typeof(clientName) === 'string') {
+  if (clientName && typeof (clientName) === 'string') {
     query.clientName = clientName;
-  } else {
+  }
+  else {
     return res.status(400).json({
       error: 'Invalid / Non-existent client name',
-    })
+    });
   }
 
   if (
     city
     && city.toUpperCase() === parkingDoExist[0].city
-    && typeof(city) === 'string'
+    && typeof (city) === 'string'
   ) {
-      query.city = city.toUpperCase();
-  } else {
+    query.city = city.toUpperCase();
+  }
+  else {
     return res.status(400).json({
       error: 'Invalid / Non-existent parking city',
     });
@@ -77,7 +82,8 @@ reservationsController.addReservation = async (req, res) => {
     || vehicle === 'motorbike'
   ) {
     query.vehicle = vehicle;
-  } else {
+  }
+  else {
     return res.status(400).json({
       error: 'Invalid / Non-existent vehicle field',
     });
@@ -86,13 +92,14 @@ reservationsController.addReservation = async (req, res) => {
   if (
     licensePlate
     && licensePlate.length === 6
-    && typeof(licensePlate) === 'string'
+    && typeof (licensePlate) === 'string'
   ) {
     query.licensePlate = licensePlate.toUpperCase();
-  } else {
+  }
+  else {
     return res.status(400).json({
       error: 'Invalid / Non-existent license plate',
-    })
+    });
   }
 
   if (
@@ -104,7 +111,8 @@ reservationsController.addReservation = async (req, res) => {
   ) {
     query.checkin = checkin;
     query.checkout = checkout;
-  } else {
+  }
+  else {
     res.status(400).json({
       error: 'Invalid / Non-existent date format || checkin must be greater than checkout',
     });
@@ -113,7 +121,8 @@ reservationsController.addReservation = async (req, res) => {
   try {
     const response = await reservations.add(query);
     res.status(200).json(response);
-  } catch (error) {
+  }
+  catch (error) {
     console.log(error);
     return res.status(500).json({
       error,
@@ -132,7 +141,8 @@ reservationsController.deleteReservation = async (req, res) => {
   try {
     const response = await reservations.delete(id);
     res.status(200).json(response);
-  } catch (error) {
+  }
+  catch (error) {
     console.log(error);
   }
 };
@@ -140,7 +150,7 @@ reservationsController.deleteReservation = async (req, res) => {
 reservationsController.replaceReservation = async (req, res) => {
   const id = parseInt(req.params.id);
   if (isNaN(id)) {
-    return res.status(400).json({error: 'Id must be a valid number'});
+    return res.status(400).json({ error: 'Id must be a valid number' });
   }
 
   const newData = req.body; // Needs validation but I ain't gonna spend time on this
@@ -148,7 +158,8 @@ reservationsController.replaceReservation = async (req, res) => {
   try {
     const response = await reservations.replace(id, newData);
     res.status(200).json(response);
-  } catch (error) {
+  }
+  catch (error) {
     console.log(error);
   }
 };
@@ -156,13 +167,14 @@ reservationsController.replaceReservation = async (req, res) => {
 reservationsController.getReservation = async (req, res) => {
   const id = parseInt(req.params.id);
   if (isNaN(id)) {
-    return res.status(400).json({error: 'Id must be a valid number'});
+    return res.status(400).json({ error: 'Id must be a valid number' });
   }
 
   try {
     const response = await reservations.getOne(id);
     res.status(200).json(response);
-  } catch (error) {
+  }
+  catch (error) {
     console.log(error);
   }
 };
@@ -170,7 +182,7 @@ reservationsController.getReservation = async (req, res) => {
 reservationsController.modifyReservation = async (req, res) => {
   const id = parseInt(req.params.id);
   if (isNaN(id)) {
-    return res.status(400).json({error: 'Id must be a valid number'});
+    return res.status(400).json({ error: 'Id must be a valid number' });
   }
 
   const newData = req.body; // Needs validation too
@@ -178,7 +190,8 @@ reservationsController.modifyReservation = async (req, res) => {
   try {
     const response = await reservations.modify(id, newData);
     res.status(200).json(response);
-  } catch (error) {
+  }
+  catch (error) {
     console.log(error);
   }
 };
