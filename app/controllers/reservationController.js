@@ -76,8 +76,6 @@ reservationsController.addReservation = async (req, res) => {
     && vehicle === 'car'
     || vehicle === 'motorbike'
   ) {
-    console.log(vehicle === 'car');
-    console.log(vehicle === 'motorbike');
     query.vehicle = vehicle;
   } else {
     return res.status(400).json({
@@ -88,8 +86,9 @@ reservationsController.addReservation = async (req, res) => {
   if (
     licensePlate
     && licensePlate.length === 6
-    && typeof(licensePlate) === 'string') {
-      query.licensePlate = licensePlate.toUpperCase();
+    && typeof(licensePlate) === 'string'
+  ) {
+    query.licensePlate = licensePlate.toUpperCase();
   } else {
     return res.status(400).json({
       error: 'Invalid / Non-existent license plate',

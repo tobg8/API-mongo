@@ -1,4 +1,3 @@
-const { response, query } = require('express');
 const database = require('../db');
 const parking = {};
 
