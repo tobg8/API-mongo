@@ -3,8 +3,14 @@ const database = require('../db');
 const parking = {};
 
 parking.list = async () => {
-  const parkingList = await database.db.collection('parking').find({}).toArray();
-  return parkingList;
+  try {
+    const parkingList = await database.db.collection('parking').find({}).toArray();
+    return parkingList;
+  } catch (error) {
+    return {
+      error,
+    }
+  }
 }
 
 parking.add = async (query) => {
