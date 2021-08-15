@@ -22,9 +22,7 @@ reservations.add = async (query) => {
   }
 }
 
-reservations.delete = async (req, res) => {
-  const id = parseInt(req.params.id);
-
+reservations.delete = async (id) => {
   try {
     const response = await database.db.collection('reservations').deleteOne({id});
     return response;
@@ -34,10 +32,7 @@ reservations.delete = async (req, res) => {
   }
 }
 
-reservations.replace = async (req, res) => {
-  const id = parseInt(req.params.id);
-  const newData = req.body;
-
+reservations.replace = async (id, newData) => {
   try {
     const response = await database.db.collection('reservations').replaceOne({id}, newData);
     return response;
@@ -47,10 +42,7 @@ reservations.replace = async (req, res) => {
   }
 };
 
-reservations.modify = async (req, res) => {
-  const id = parseInt(req.params.id);
-  const newData = req.body;
-
+reservations.modify = async (id, newData) => {
   try {
     const response = await database.db.collection('reservations').findOneAndUpdate({id}, [ { $set: newData }]);
     return response;
@@ -60,8 +52,7 @@ reservations.modify = async (req, res) => {
   }
 };
 
-reservations.getOne = async (req, res) => {
-  const id = parseInt(req.params.id);
+reservations.getOne = async (id) => {
   try {
     const response = await database.db.collection('reservations').find({id}).toArray();
     return response;

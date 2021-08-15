@@ -40,10 +40,10 @@ DELETE http://localhost:3888/parkings/ok
 GET http://localhost:3888/reservations
 
 ### GET RESERVATION
-GET http://localhost:3888/reservations/4
+GET http://localhost:3888/reservations/ok
 
 ### DELETE RESERVATION
-DELETE http://localhost:3888/reservations/4
+DELETE http://localhost:3888/reservations/1
 
 ### PUT RESERVATION
 PUT http://localhost:3888/reservations/3
@@ -57,7 +57,7 @@ Content-Type: application/json
 }
 
 ### UPDATE RESERVATION
-PATCH http://localhost:3888/reservations/4
+PATCH http://localhost:3888/reservations/ok
 Content-Type: application/json
 
 {

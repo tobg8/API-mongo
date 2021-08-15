@@ -122,8 +122,15 @@ reservationsController.addReservation = async (req, res) => {
 };
 
 reservationsController.deleteReservation = async (req, res) => {
+  const id = parseInt(req.params.id);
+  if (isNaN(id)) {
+    return res.status(400).json({
+      error: 'Id must be a valid number',
+    });
+  }
+
   try {
-    const response = await reservations.delete(req, res);
+    const response = await reservations.delete(id);
     res.status(200).json(response);
   } catch (error) {
     console.log(error);
@@ -131,8 +138,15 @@ reservationsController.deleteReservation = async (req, res) => {
 };
 
 reservationsController.replaceReservation = async (req, res) => {
+  const id = parseInt(req.params.id);
+  if (isNaN(id)) {
+    return res.status(400).json({error: 'Id must be a valid number'});
+  }
+
+  const newData = req.body; // Needs validation but I ain't gonna spend time on this
+
   try {
-    const response = await reservations.replace(req, res);
+    const response = await reservations.replace(id, newData);
     res.status(200).json(response);
   } catch (error) {
     console.log(error);
@@ -140,8 +154,13 @@ reservationsController.replaceReservation = async (req, res) => {
 };
 
 reservationsController.getReservation = async (req, res) => {
+  const id = parseInt(req.params.id);
+  if (isNaN(id)) {
+    return res.status(400).json({error: 'Id must be a valid number'});
+  }
+
   try {
-    const response = await reservations.getOne(req, res);
+    const response = await reservations.getOne(id);
     res.status(200).json(response);
   } catch (error) {
     console.log(error);
@@ -149,8 +168,15 @@ reservationsController.getReservation = async (req, res) => {
 };
 
 reservationsController.modifyReservation = async (req, res) => {
+  const id = parseInt(req.params.id);
+  if (isNaN(id)) {
+    return res.status(400).json({error: 'Id must be a valid number'});
+  }
+
+  const newData = req.body; // Needs validation too
+
   try {
-    const response = await reservations.modify(req, res);
+    const response = await reservations.modify(id, newData);
     res.status(200).json(response);
   } catch (error) {
     console.log(error);
