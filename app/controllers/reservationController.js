@@ -6,10 +6,13 @@ const reservationsController = {};
 reservationsController.getReservations = async (_, res) => {
   try {
     const response = await reservations.list();
-    res.status(200).json(response);
+    return res.status(200).json(response);
   }
   catch (error) {
     console.log(error);
+    return res.status(500).json({
+      error,
+    });
   }
 };
 
@@ -25,8 +28,8 @@ reservationsController.addReservation = async (req, res) => {
     checkout,
   } = req.body;
 
-  if (isNaN(parseInt(parkingId))) {
-    res.status(400).json({
+  if (Number.isNaN(parseInt(parkingId, 10))) {
+    return res.status(400).json({
       error: 'Please provide a valid parking id',
     });
   }
@@ -78,8 +81,8 @@ reservationsController.addReservation = async (req, res) => {
 
   if (
     vehicle
-    && vehicle === 'car'
-    || vehicle === 'motorbike'
+    && (vehicle === 'car'
+    || vehicle === 'motorbike')
   ) {
     query.vehicle = vehicle;
   }
@@ -105,8 +108,8 @@ reservationsController.addReservation = async (req, res) => {
   if (
     checkin
     && checkout
-    && !isNaN((Date.parse(checkin)))
-    && !isNaN((Date.parse(checkout)))
+    && !Number.isNaN((Date.parse(checkin)))
+    && !Number.isNaN((Date.parse(checkout)))
     && Date.parse(checkin) < Date.parse(checkout)
   ) {
     query.checkin = checkin;
@@ -120,7 +123,7 @@ reservationsController.addReservation = async (req, res) => {
 
   try {
     const response = await reservations.add(query);
-    res.status(200).json(response);
+    return res.status(200).json(response);
   }
   catch (error) {
     console.log(error);
@@ -131,8 +134,8 @@ reservationsController.addReservation = async (req, res) => {
 };
 
 reservationsController.deleteReservation = async (req, res) => {
-  const id = parseInt(req.params.id);
-  if (isNaN(id)) {
+  const id = parseInt(req.params.id, 10);
+  if (Number.isNaN(id)) {
     return res.status(400).json({
       error: 'Id must be a valid number',
     });
@@ -140,16 +143,19 @@ reservationsController.deleteReservation = async (req, res) => {
 
   try {
     const response = await reservations.delete(id);
-    res.status(200).json(response);
+    return res.status(200).json(response);
   }
   catch (error) {
     console.log(error);
+    return res.status(500).json({
+      error,
+    });
   }
 };
 
 reservationsController.replaceReservation = async (req, res) => {
-  const id = parseInt(req.params.id);
-  if (isNaN(id)) {
+  const id = parseInt(req.params.id, 10);
+  if (Number.isNaN(id)) {
     return res.status(400).json({ error: 'Id must be a valid number' });
   }
 
@@ -157,31 +163,37 @@ reservationsController.replaceReservation = async (req, res) => {
 
   try {
     const response = await reservations.replace(id, newData);
-    res.status(200).json(response);
+    return res.status(200).json(response);
   }
   catch (error) {
     console.log(error);
+    return res.status(500).json({
+      error,
+    });
   }
 };
 
 reservationsController.getReservation = async (req, res) => {
-  const id = parseInt(req.params.id);
-  if (isNaN(id)) {
+  const id = parseInt(req.params.id, 10);
+  if (Number.isNaN(id)) {
     return res.status(400).json({ error: 'Id must be a valid number' });
   }
 
   try {
     const response = await reservations.getOne(id);
-    res.status(200).json(response);
+    return res.status(200).json(response);
   }
   catch (error) {
     console.log(error);
+    return res.status(500).json({
+      error,
+    });
   }
 };
 
 reservationsController.modifyReservation = async (req, res) => {
-  const id = parseInt(req.params.id);
-  if (isNaN(id)) {
+  const id = parseInt(req.params.id, 10);
+  if (Number.isNaN(id)) {
     return res.status(400).json({ error: 'Id must be a valid number' });
   }
 
@@ -189,10 +201,13 @@ reservationsController.modifyReservation = async (req, res) => {
 
   try {
     const response = await reservations.modify(id, newData);
-    res.status(200).json(response);
+    return res.status(200).json(response);
   }
   catch (error) {
     console.log(error);
+    return res.status(500).json({
+      error,
+    });
   }
 };
 

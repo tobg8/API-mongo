@@ -1,11 +1,11 @@
-const parking = require('../models/parking');
+const parking = require('../models/parking.js');
 
 const parkingController = {};
 
 parkingController.getParkings = async (_, res) => {
   try {
     const response = await parking.list();
-    res.status(200).json(response);
+    return res.status(200).json(response);
   }
   catch (error) {
     // console.log(error);
@@ -44,7 +44,7 @@ parkingController.addParking = async (req, res) => {
 
   try {
     const response = await parking.add(query);
-    res.status(200).json(response);
+    return res.status(200).json(response);
   }
   catch (error) {
     // console.log(error);
@@ -55,8 +55,8 @@ parkingController.addParking = async (req, res) => {
 };
 
 parkingController.deleteParking = async (req, res) => {
-  const id = parseInt(req.params.id);
-  if (isNaN(id)) {
+  const id = parseInt(req.params.id, 10);
+  if (Number.isNaN(id)) {
     return res.status(400).json({
       error: 'Id must be a valid number',
     });
@@ -64,7 +64,7 @@ parkingController.deleteParking = async (req, res) => {
 
   try {
     const response = await parking.delete(id);
-    res.status(200).json(response);
+    return res.status(200).json(response);
   }
   catch (error) {
     // console.log(error);
@@ -75,8 +75,8 @@ parkingController.deleteParking = async (req, res) => {
 };
 
 parkingController.replaceParking = async (req, res) => {
-  const id = parseInt(req.params.id);
-  if (isNaN(id)) {
+  const id = parseInt(req.params.id, 10);
+  if (Number.isNaN(id)) {
     return res.status(400).json({ error: 'Id must be a valid number' });
   }
 
@@ -111,7 +111,7 @@ parkingController.replaceParking = async (req, res) => {
 
   try {
     const response = await parking.replace(id, query);
-    res.status(200).json(response);
+    return res.status(200).json(response);
   }
   catch (error) {
     // console.log(error);
@@ -122,8 +122,8 @@ parkingController.replaceParking = async (req, res) => {
 };
 
 parkingController.getParking = async (req, res) => {
-  const id = parseInt(req.params.id);
-  if (isNaN(id)) {
+  const id = parseInt(req.params.id, 10);
+  if (Number.isNaN(id)) {
     return res.status(400).json({
       error: 'Id must be a valid number',
     });
@@ -131,7 +131,7 @@ parkingController.getParking = async (req, res) => {
 
   try {
     const response = await parking.getOne(id);
-    res.status(200).json(response);
+    return res.status(200).json(response);
   }
   catch (error) {
     // console.log(error);
@@ -142,8 +142,8 @@ parkingController.getParking = async (req, res) => {
 };
 
 parkingController.modifyParking = async (req, res) => {
-  const id = parseInt(req.params.id);
-  if (isNaN(id)) {
+  const id = parseInt(req.params.id, 10);
+  if (Number.isNaN(id)) {
     return res.status(400).json({
       error: 'Id must be a valid number',
     });
@@ -175,7 +175,7 @@ parkingController.modifyParking = async (req, res) => {
   }
   try {
     const response = await parking.modify(id, query);
-    res.status(200).json(response);
+    return res.status(200).json(response);
   }
   catch (error) {
     // console.log(error);
